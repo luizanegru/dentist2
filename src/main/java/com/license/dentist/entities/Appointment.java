@@ -1,35 +1,30 @@
 package com.license.dentist.entities;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NegativeOrZero;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(	name = "doctor_profile")
-public class ProfileForDoctor {
+@Table(	name = "appointment")
+public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotBlank
-    private String specialization;
+    private Timestamp dateTime;
 
     @NotBlank
-    private String description;
+    private Integer doctor;
 
     @NotBlank
-    private String courses;
-
-    @OneToOne
-    @JoinColumn(name = "username")
-    private User user;
+    private Integer patient;
 }

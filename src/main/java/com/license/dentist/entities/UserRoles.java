@@ -2,10 +2,7 @@ package com.license.dentist.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Data
 @Table(	name = "user_roles")
@@ -13,7 +10,8 @@ import javax.persistence.UniqueConstraint;
 public class UserRoles {
 
     @Id
-    Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
     Integer userRole;
 }

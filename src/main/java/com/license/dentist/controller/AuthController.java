@@ -86,10 +86,10 @@ public class AuthController {
                 signUpRequest.getLastName(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
-
+        System.out.println("Am ajuns aici");
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();
-
+        System.out.println("Am ajuns aici2");
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -113,12 +113,15 @@ public class AuthController {
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
+                        System.out.println("Am ajuns aici3");
                         break;
                 }
             });
         }
-
+        System.out.println("Am ajuns aici4");
         user.setRoles(roles);
+        System.out.println("Am ajuns aici5");
+
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
