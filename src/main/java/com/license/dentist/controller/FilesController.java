@@ -53,7 +53,7 @@ public class FilesController {
         if (Files.notExists(root)) {
             return ResponseEntity.status(HttpStatus.OK).body(null);
         }
-        List<FileInfo> fileInfos = storageService.loadAll().map(path -> {
+        List<FileInfo> fileInfos = storageService.loadAll(root).map(path -> {
             String filename = path.getFileName().toString();
             String url = MvcUriComponentsBuilder
                     .fromMethodName(FilesController.class, "getFile", path.getFileName().toString()).build().toString();
@@ -69,6 +69,7 @@ public class FilesController {
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = storageService.load(filename);
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+                .body(file);
     }
 }

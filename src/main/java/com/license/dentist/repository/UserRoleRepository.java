@@ -12,4 +12,7 @@ import java.util.List;
 public interface UserRoleRepository extends JpaRepository<UserRoles, Integer> {
     @Query(value = "select user_id from user_roles where role_id = 2", nativeQuery = true)
     List<Integer> getIdDoctorUser();
+
+    @Query(value = "select user_id from user_roles where role_id = 1", nativeQuery = true)
+    List<Integer> getIdPatientUser();
 }

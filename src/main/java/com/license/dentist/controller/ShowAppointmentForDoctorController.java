@@ -1,17 +1,13 @@
 package com.license.dentist.controller;
 
 import com.license.dentist.entities.Appointment;
-import com.license.dentist.entities.ProfileForDoctor;
 import com.license.dentist.entities.User;
 import com.license.dentist.repository.AppointmentRepository;
 import com.license.dentist.repository.UserRepository;
-import com.license.dentist.request.ShowDoctorsRequest;
 import com.license.dentist.response.AppointmentResponse;
 import com.license.dentist.response.ShowAppointmentResponse;
-import com.license.dentist.response.ShowDoctorsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -24,7 +20,7 @@ import java.util.TimeZone;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/appointment")
-public class ShowAppointmentController {
+public class ShowAppointmentForDoctorController {
 
     @Autowired
     UserRepository userRepository;
@@ -32,12 +28,12 @@ public class ShowAppointmentController {
     @Autowired
     AppointmentRepository appointmentRepository;
 
-    @GetMapping("/showAppointmentForPatient")
+    @GetMapping("/showAppointmentForDoctor")
     //@PreAuthorize("hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')")
-    public ResponseEntity<AppointmentResponse> getAppointmentsForPatient(@RequestParam Integer id) {
+    public ResponseEntity<AppointmentResponse> getAppointmentsForDoctor(@RequestParam Integer id) {
         AppointmentResponse appointmentResponse = new AppointmentResponse();
         List<ShowAppointmentResponse> showAppointmentResponses= new ArrayList<>();
-        List<Appointment> appointmentsForUser = appointmentRepository.getAppointmentForUser(id);
+        List<Appointment> appointmentsForUser = appointmentRepository.getAppointmentForDoctor(id);
 
         for (Appointment appointment: appointmentsForUser) {
             User patient = userRepository.getOne(appointment.getPatient().longValue());

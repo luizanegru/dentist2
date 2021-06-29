@@ -68,9 +68,9 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
 
     @Override
-    public Stream<Path> loadAll() {
+    public Stream<Path> loadAll(Path root2) {
         try {
-            return Files.walk(this.root, 1).filter(path -> !path.equals(this.root)).map(this.root::relativize);
+            return Files.walk(root2, 1).filter(path -> !path.equals(root2)).map(root2::relativize);
         } catch (IOException e) {
             throw new RuntimeException("Could not load the files!");
         }
